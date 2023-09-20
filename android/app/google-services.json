@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "474912278158",
+    "project_id": "flutter-chat-app-f5bf3",
+    "storage_bucket": "flutter-chat-app-f5bf3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474912278158:android:f9c7b3b660dac235976bdf",
+        "android_client_info": {
+          "package_name": "com.polgimeno.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "474912278158-j35db3f07lbrfkkpnbsaaktk55hnl9ce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK1EkYVx2et6a-wWT5QJc5Tw3PFskCyms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "474912278158-j35db3f07lbrfkkpnbsaaktk55hnl9ce.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

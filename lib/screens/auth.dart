@@ -21,6 +21,7 @@ class _AuthScreenState extends State<AuthScreen> {
   var _enteredPassword = '';
   File? _selectedImage;
   var _isAuthenticating = false;
+  var _enteredUserName = '';
 
   void _submit() async {
     final isValid = _form.currentState!.validate();
@@ -57,7 +58,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .collection('users')
             .doc('${userCredentials.user!.uid}')
             .set({
-          'userName': 'to be done',
+          'userName': _enteredUserName,
           'email': _enteredEmail,
           'imageUrl': userImageURL,
         });
@@ -121,6 +122,24 @@ class _AuthScreenState extends State<AuthScreen> {
                               _enteredEmail = value!;
                             },
                           ),
+                          if (!_isLogin)
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  labelText: 'Choose a username.'),
+                              enableSuggestions: false,
+                              validator: (value) {
+                                if (value == null ||
+                                    value.trim().length <= 3 ||
+                                    value.isEmpty) {
+                                  return 'Enter a valid username.';
+                                }
+
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _enteredUserName = value!;
+                              },
+                            ),
                           TextFormField(
                             decoration: InputDecoration(labelText: 'Password'),
                             obscureText: true,

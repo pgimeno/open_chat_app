@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:chat_app/widgets/user_image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,17 +20,22 @@ class _AuthScreenState extends State<AuthScreen> {
   var _enteredEmail = '';
   var _enteredPassword = '';
   File? _selectedImage;
+  var _isAuthenticating = false;
 
   void _submit() async {
     final isValid = _form.currentState!.validate();
 
-    if (!isValid ||!_isLogin && _selectedImage == null) {
+    if (!isValid || !_isLogin && _selectedImage == null) {
       //show an error message
       return;
     }
 
     _form.currentState!.save();
     try {
+      setState(() {
+        _isAuthenticating = true;
+      });
+
       if (_isLogin) {
         // log user in
         final userCredentials = await _firebase.signInWithEmailAndPassword(
@@ -39,17 +45,32 @@ class _AuthScreenState extends State<AuthScreen> {
         final userCredentials = await _firebase.createUserWithEmailAndPassword(
             email: _enteredEmail, password: _enteredPassword);
 
-        final storageRef = FirebaseStorage.instance.ref().child('user_images').child('${userCredentials.user!.uid}.jpg');
+        final storageRef = FirebaseStorage.instance
+            .ref()
+            .child('user_images')
+            .child('${userCredentials.user!.uid}.jpg');
 
         await storageRef.putFile(_selectedImage!);
         final userImageURL = await storageRef.getDownloadURL();
-        print(userImageURL);
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc('${userCredentials.user!.uid}')
+            .set({
+          'userName': 'to be done',
+          'email': _enteredEmail,
+          'imageUrl': userImageURL,
+        });
       }
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {}
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(error.message ?? 'Authentication failed.')));
+
+      setState(() {
+        _isAuthenticating = false;
+      });
     }
   }
 
@@ -117,23 +138,27 @@ class _AuthScreenState extends State<AuthScreen> {
                             },
                           ),
                           SizedBox(height: 12),
-                          ElevatedButton(
-                            onPressed: () {
-                              _submit();
-                            },
-                            child: Text(_isLogin ? 'Log In' : 'Sign Up'),
-                          ),
+                          if (_isAuthenticating)
+                            const CircularProgressIndicator(),
+                          if (!_isAuthenticating)
+                            ElevatedButton(
+                              onPressed: () {
+                                _submit();
+                              },
+                              child: Text(_isLogin ? 'Log In' : 'Sign Up'),
+                            ),
                           SizedBox(
                             height: 8,
                           ),
-                          TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  _isLogin = !_isLogin;
-                                });
-                              },
-                              child: Text(
-                                  _isLogin ? 'Create an account' : 'Log In'))
+                          if (!_isAuthenticating)
+                            TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _isLogin = !_isLogin;
+                                  });
+                                },
+                                child: Text(
+                                    _isLogin ? 'Create an account' : 'Log In'))
                         ],
                       ),
                     ),

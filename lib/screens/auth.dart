@@ -78,7 +78,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -113,7 +112,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               if (value == null ||
                                   value.trim().isEmpty ||
                                   !value.contains('@')) {
-                                return 'Email adress is not valid';
+                                return 'No es una dirección válida';
                               }
 
                               return null;
@@ -125,13 +124,13 @@ class _AuthScreenState extends State<AuthScreen> {
                           if (!_isLogin)
                             TextFormField(
                               decoration: const InputDecoration(
-                                  labelText: 'Choose a username.'),
+                                  labelText: 'Nombre de usuario'),
                               enableSuggestions: false,
                               validator: (value) {
                                 if (value == null ||
                                     value.trim().length <= 3 ||
                                     value.isEmpty) {
-                                  return 'Enter a valid username.';
+                                  return 'Añade un nombre válido';
                                 }
 
                                 return null;
@@ -141,13 +140,13 @@ class _AuthScreenState extends State<AuthScreen> {
                               },
                             ),
                           TextFormField(
-                            decoration: InputDecoration(labelText: 'Password'),
+                            decoration: InputDecoration(labelText: 'Contraseña'),
                             obscureText: true,
                             validator: (value) {
                               if (value == null ||
                                   value.trim().isEmpty ||
                                   value.trim().length < 6) {
-                                return 'Password can\'t be empty and has to be more than 6 characters.';
+                                return 'El password no puede estar vacío y debe tener más de 6 carácteres..';
                               }
 
                               return null;
@@ -164,7 +163,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               onPressed: () {
                                 _submit();
                               },
-                              child: Text(_isLogin ? 'Log In' : 'Sign Up'),
+                              child: Text(_isLogin ? 'Log In' : 'Registrarme'),
                             ),
                           SizedBox(
                             height: 8,
@@ -177,7 +176,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   });
                                 },
                                 child: Text(
-                                    _isLogin ? 'Create an account' : 'Log In'))
+                                    _isLogin ? 'Crear una cuenta' : 'Log In'))
                         ],
                       ),
                     ),

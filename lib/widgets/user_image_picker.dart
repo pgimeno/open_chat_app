@@ -47,7 +47,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
               _pickImage();
             },
             icon: Icon(Icons.image),
-            label: Text('Add image'))
+            label: Text('Añadir imagen'))
       ],
     );
   }

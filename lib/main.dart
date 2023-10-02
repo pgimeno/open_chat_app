@@ -20,13 +20,38 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'VivoChat',
-      theme: ThemeData().copyWith(
-        useMaterial3: true,
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 63, 17, 177)),
+    //dark theme
+    final ThemeData customDarkTheme = ThemeData.dark().copyWith(
+      primaryColor: Color(0xFFBFACB5),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all(Colors.white)
+        ),
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xFF7F7B82)))),
+      textTheme: TextTheme(
+          bodyMedium: TextStyle(color: Colors.white),
+          bodySmall: TextStyle(color: Colors.white),
+          bodyLarge: TextStyle(color: Colors.white),
+        labelMedium: TextStyle(color: Colors.white),
+        labelSmall: TextStyle(color: Colors.white),
+        labelLarge: TextStyle(color: Colors.white)
+      ),
+      scaffoldBackgroundColor: Color(0xFF805D93),
+      buttonTheme: ButtonThemeData(buttonColor: Color(0xFF444554)),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Color(0xFFBFACB5),
+        iconTheme: IconThemeData(
+            color: const Color(0xFF172121)), // Change the icon color
+      ),
+    );
+
+    return MaterialApp(
+      title: 'OpenChat',
+      // Use the custom dark theme
+      theme: customDarkTheme,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, snapshot) {

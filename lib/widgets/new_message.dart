@@ -52,14 +52,14 @@ class _NewMessageState extends State<NewMessage> {
               child: TextField(
             controller: _messageController,
             textCapitalization: TextCapitalization.sentences,
-            decoration: InputDecoration(labelText: 'Send a message...'),
+            decoration: InputDecoration(labelText: 'Enviar mensaje...'),
           )),
           IconButton(
             onPressed: () {
               _submitMessage();
             },
             icon: const Icon(Icons.send),
-            color: Theme.of(context).primaryColor,
+            color: Colors.white,
           )
         ],
       ),

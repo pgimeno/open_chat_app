@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -83,6 +84,7 @@ class _AuthScreenState extends State<AuthScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text('OpenChat', style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 35)),),
               Container(
                 margin:
                     EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),

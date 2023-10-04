@@ -23,6 +23,9 @@ class MyApp extends StatelessWidget {
     //dark theme
     final ThemeData customDarkTheme = ThemeData.dark().copyWith(
       primaryColor: Color(0xFFBFACB5),
+      textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.white),
+      cardColor: Color(0xFF542E71),
+      inputDecorationTheme: InputDecorationTheme(focusColor:Colors.red,focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.deepPurpleAccent))),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
           foregroundColor: MaterialStateProperty.all(Colors.white)
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Color(0xFF7F7B82)))),
+              backgroundColor: MaterialStateProperty.all(Color(0xFF16001E)))),
       textTheme: TextTheme(
           bodyMedium: TextStyle(color: Colors.white),
           bodySmall: TextStyle(color: Colors.white),
@@ -42,9 +45,9 @@ class MyApp extends StatelessWidget {
       scaffoldBackgroundColor: Color(0xFF805D93),
       buttonTheme: ButtonThemeData(buttonColor: Color(0xFF444554)),
       appBarTheme: AppBarTheme(
-        backgroundColor: Color(0xFFBFACB5),
+        backgroundColor: Color(0xFF16001E),
         iconTheme: IconThemeData(
-            color: const Color(0xFF172121)), // Change the icon color
+            color: Colors.white), // Change the icon color
       ),
     );
 
